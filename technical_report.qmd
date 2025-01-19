@@ -2,21 +2,17 @@
 title: "Various Demographic Factors Effect on Students’ Participation In Extracurricular Activities"
 subtitle: "Data Collected from STA304H5F in 2024"
 author: 
-  - Vanshika Vanshika
-  - Navya Hooda
-  - Shea Munson
-  - Alexia Mbagaya
-  - Chloe Syriac
-  
-thanks: "Code and data available at: https://github.com/vanshikav2/Extra_Curricular_Activities_Research"
+  - Navya Hooda*
+  - Alexia Mbagaya*
+  - Shea Munson*
+  - Chloe Syriac*
+  - Vanshika Vanshika*
+  - \*All Authors Contributed Equally.
+
 date: today
 date-format: long
-header-includes:
-  - \usepackage{amsmath}
-  - \usepackage{amssymb}
-  - \usepackage{pgfplots}
 abstract: "It is known that for students to have a well-rounded university experience, participation in extracurricular activities is vital, not only for academic but personal growth. However, student participation in extracurricular activities depends on a number of factors. Some include scheduling and time-commitment factors, commute factors, and the diversity of student activities and clubs. This study aims to explore this by investigating the reasons that students select certain extracurricular activities at the University of Toronto Mississauga (UTM) campus. An anonymous online survey on Google Forms was created for students in a third-year statistics course to complete. Findings showed that there was no significant relationship between living distance from campus and program of study with extracurricular involvement. Findings did show that there was statistical significance between student status and activity preference (p = 0.013). The findings also showed there was a statistically significant monotonically increasing relationship ($\\rho$ = 0.937) between time commitment and activity count. As students increase their time commitment, so does their participation in extracurricular activities (ECAs). Although results produced minimal significant findings, we believe that this is a valiant step in the right direction towards investigating student participation at UTM."
-format: pdf
+format: html
 number-sections: true
 toc: true
 ---
@@ -246,7 +242,7 @@ levene_df[is.na(levene_df)] <- ""
 kable(levene_df, caption = "Levene Test on The Activity Preference by Major")
 ```
 
-For the Levene test, we found that our F-statistc was 0.8882 and a p-value of 0.5433. Since the p-value is greater than the significance level of 0.05 we fail to reject the null hypothesis. This suggests that the variances in Activity Preferences across the groups are not significantly different. Therefore our assumption of homogeneity of variances is satisfied.
+For the Levene test, we found that our F-statistic was 0.8882 and a p-value of 0.5433. Since the p-value is greater than the significance level of 0.05 we fail to reject the null hypothesis. This suggests that the variances in Activity Preferences across the groups are not significantly different. Therefore our assumption of homogeneity of variances is satisfied.
 As much as the normality was violated we still opted to use the ANOVA test since it passed the Levene Test confirming the homogeneity of variances and the sample size is large enough.
 
 We then conducted the ANOVA Test to determine whether there are any significant differences in the mean proportions of student activity preferences and their respective majors.
@@ -261,7 +257,9 @@ We then conducted the ANOVA Test to determine whether there are any significant 
 anova_summary <- summary(anova_major)[[1]]
 anova_df <- data.frame(anova_summary)
 anova_df[is.na(anova_df)] <- ""
-kable(anova_df, caption = "Anova Test on The Activity Preference by Major")
+kable(anova_df, 
+      col.names = c("DF", "Sum of Squares", "Mean Squares", "F-Value", "Pr(>F)"),
+      caption = "Anova Test on The Activity Preference by Major")
 ```
 
 After the ANOVA Analysis we can found the F-statistic was 0.8040 and a p-value of 0.5490. Since our p-value is greater than $\alpha = 0.05$ we concluded that the differences in mean activity preferences across majors are not statistically significant.
@@ -340,7 +338,9 @@ levene_gender <- leveneTest(activityTypeNumeric ~ genderIdentity, data = data)
 levene_gender_df <- as.data.frame(levene_gender)
 levene_gender_df[is.na(levene_gender_df)] <- ""
 
-kable(levene_gender_df, caption = "Levene Test for Equality of Variances in Activity Preferences by Gender Identity")
+kable(levene_gender_df, 
+      col.names = c("DF", "F-Value", "Pr(>F)"),
+      caption = "Levene Test for Equality of Variances in Activity Preferences by Gender Identity")
 ```
 
 With an F-statistic of 6.192 which is quite high indicating that there is a big difference between the two groups, we got a p-value of 0.0142 which is less than 0.05 suggesting that the variances in activity preferences between males and females are significantly different.
@@ -359,7 +359,9 @@ t_test_gender <- t.test(activityTypeNumeric ~ genderIdentity, data = data, var.e
 
 t_test_result_df <- data.frame(T_Statistic = t_test_gender$statistic, DF = t_test_gender$parameter, p_value = t_test_gender$p.value, MEAN_FEMALE = t_test_gender$estimate[1], MEAN_MALE = t_test_gender$estimate[2])
 
-kable(t_test_result_df, caption = "Welch t-test on the Activity Proportion by Gender")
+kable(t_test_result_df, 
+      col.names = c("T Statistic", "DF", "p-value", "Female Mean ($\\mu_F$)", "Male Mean ($\\mu_M$)"),
+      caption = "Welch t-test on the Activity Proportion by Gender", escape = FALSE)
 
 ```
 
@@ -389,7 +391,9 @@ shapiro_results <- data.frame(
   W_Statistic = c(shapiro_D$statistic, shapiro_I$statistic),
   P_Value = c(shapiro_D$p.value, shapiro_I$p.value)
 )
-kable(shapiro_results, caption = "Shapiro Test on studentStatus")
+kable(shapiro_results, 
+      col.names = c("Student Status", "W Statistic", "p-Value"),
+      caption = "Shapiro Test on Student Status")
 
 ```
 
@@ -408,21 +412,23 @@ levene_status <- leveneTest(activityTypeNumeric ~ studentStatus, data = data)
 levene_status_df <- as.data.frame(levene_status)
 levene_status_df[is.na(levene_status_df)] <- ""
 
-kable(levene_status_df, caption = "Levene Test on studentStatus")
+kable(levene_status_df, 
+      col.names = c("DF", "F-Value", "Pr(>F)"),
+      caption = "Levene Test on studentStatus")
 ```
 
 From our results of the Shapiro-Wilk test we can concluded that our results are not normal.This is because we can see that the p-value of domestic students(0e+00) and international students(1e-07) are both less than  $\alpha$ = 0.05 allowing us to reject the null hypothesis. 
 
 For the Levene Test, an F-value of 0.0109 and a p-value of 0.9171 we were able to conclude that we should fail to reject the null hypothesis meaning that there is no difference in variances of activity preferences between the student status groups. 
 
-Since it failed the normality test, we opted to use the Wilcox test.
+Since it failed the normality test, we opted to use the Wilcoxon test.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Wilcox Test of Activity Preference and Student Status"
+#| tbl-cap: "Wilcoxon Test of Activity Preference and Student Status"
 #| label: r13
 #| 
 wilcox_test <- wilcox.test(activityTypeNumeric ~ studentStatus, data = data)
@@ -438,7 +444,7 @@ kable(
 )
 ```
 
-From the Wilcox Test of comparing the activity preferences between domestic and international students, with a W-statistic of 1428.5 and a p value of 0.01303 which is below the significance level of 0.05. This shows that there is a significant difference in activity preferences between domestic and international students.
+From the Wilcoxon Test of comparing the activity preferences between domestic and international students, with a W-statistic of 1428.5 and a p value of 0.01303 which is below the significance level of 0.05. This shows that there is a significant difference in activity preferences between domestic and international students.
 
 ### Conclusion on Research Question 1
 The box plots below will help in validating and visualizing the results that we got above.
@@ -447,7 +453,7 @@ For the first box plot, it is a representation of the activity preferences acros
 
 In the middle box plot, we can see the overlapping of the box plots, they also have almost similar medians further showing that there is no significant difference in activity preference between the two genders.
 
-On the last box plot, we can see that the medians between the two are different which validates the result that we got from the Wilcox result. Even though the box plots are overlapping, there is more spread of activity preferences for international students compared to domestic students.
+On the last box plot, we can see that the medians between the two are different which validates the result that we got from the Wilcoxon result. Even though the box plots are overlapping, there is more spread of activity preferences for international students compared to domestic students.
 
 ```{r, fig.width=10, fig.height=6}
 #| echo: false
@@ -539,7 +545,7 @@ summary_t <- data.frame(
 
 library(knitr)
 
-kable(summary_t, format = "pipe", col.names = c("Statistic", "CampusDistance", "ActivityCount"))
+kable(summary_t, format = "pipe", col.names = c("Statistic", "Campus Distance", "Activity Count"))
 ```
 
 The descriptive statistics suggest that most students live fairly close to campus (within 2-3 units) and participate in 1-2 extracurricular activities. This variability in both campusDistance and activityCount supports further analysis to see if there’s a relationship between proximity and participation.
@@ -627,7 +633,9 @@ correlation_results <- data.frame(
 )
 
 
-kable(correlation_results, caption = "Summary of Correlation Test Results")
+kable(correlation_results, 
+      col.name = c("Test", "Correlation Coefficient", "p-Value", "Significance"),
+      caption = "Summary of Correlation Test Results")
 
 ```
 
