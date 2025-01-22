@@ -621,7 +621,7 @@ Since there is non-normality between these variables, we proceed with Spearman's
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Test Results"
+#| tbl-cap: "Spearman's Rank Correlation Results"
 #| label: tbl-plot4
 
 # Create a data frame to summarize the correlation test results
@@ -634,8 +634,7 @@ correlation_results <- data.frame(
 
 
 kable(correlation_results, 
-      col.name = c("Test", "Correlation Coefficient", "p-Value", "Significance"),
-      caption = "Summary of Correlation Test Results")
+      col.name = c("Test", "Correlation Coefficient", "p-Value", "Significance"))
 
 ```
 
@@ -739,7 +738,7 @@ plot1 + plot2
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Test Results"
+#| tbl-cap: "Spearman's Rank Correlation Results"
 #| label: tbl-spear-corr
 
 # Load the necessary packages
@@ -762,7 +761,7 @@ table_results <- data.frame(
 )
 
 # Display the table with basic kable (without additional styling)
-kable(table_results, caption = "Spearman's Rank Correlation Results")
+kable(table_results)
 
 ```
 
@@ -779,7 +778,7 @@ As discussed before, both the timeCommitment and activityCount variables met all
 #| eval: true
 #| warning: false
 #| message: false
-#| tbl-cap: "Correlation Test Results"
+#| tbl-cap: "Spearman's Rank Correlation Results"
 #| label: tbl-spear_corr_2
 
 # Load the necessary packages
@@ -802,7 +801,7 @@ table_results <- data.frame(
 )
 
 # Display the table with basic kable (without additional styling)
-kable(table_results, caption = "Spearman's Rank Correlation Results")
+kable(table_results)
 
 ```
 
